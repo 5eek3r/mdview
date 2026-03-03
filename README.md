@@ -12,7 +12,7 @@ Renders Markdown beautifully in your terminal using [rich](https://github.com/Te
 
 ## Features
 
-- Rendered Markdown (headings, bold, tables, code blocks) — not raw source
+- Rendered Markdown (headings, bold, tables, code blocks) , not raw source
 - Line numbers in the gutter
 - Scroll with arrow keys / Page Up / Page Down
 - Search with `/pattern` (case-insensitive)
@@ -78,7 +78,7 @@ mdview file.md > output.txt
 1. Renders the Markdown with `rich.Markdown` into a buffer with ANSI color codes
 2. Shrinks the render width by 8 columns to leave room for `less -N`'s line number gutter
 3. Pipes the result to `less -NRi`:
-   - `-N` — line numbers
-   - `-R` — pass ANSI color codes through to the terminal
-   - `-i` — case-insensitive search
+   - `-N` : line numbers
+   - `-R` : pass ANSI color codes through to the terminal
+   - `-i` : case-insensitive search
 4. When stdout is not a terminal (pipe/redirect), writes plain rendered output directly
