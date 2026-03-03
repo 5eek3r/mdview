@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+import sys
+import io
+import os
+import subprocess
+from rich.console import Console
+from rich.markdown import Markdown
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: mdview <file.md>", file=sys.stderr)
+        sys.exit(1)
+
+    path = sys.argv[1]
+    try:
+        with open(path, "r") as f:
+            content = f.read()
+    except FileNotFoundError:
+        print(f"mdview: {path}: No such file", file=sys.stderr)
+        sys.exit(1)
+    except PermissionError:
+        print(f"mdview: {path}: Permission denied", file=sys.stderr)
+        sys.exit(1)
+
+    term_width = os.get_terminal_size().columns
+    # less -N uses ~8 chars for its line number gutter; shrink render width to prevent wrapping
+    render_width = term_width - 8 if sys.stdout.isatty() else term_width
+    buf = io.StringIO()
+    temp = Console(file=buf, force_terminal=True, width=render_width)
+    temp.print(Markdown(content))
+    rendered = buf.getvalue()
+
+    if sys.stdout.isatty():
+        proc = subprocess.Popen(["less", "-NRi"], stdin=subprocess.PIPE)
+        proc.communicate(rendered.encode())
+    else:
+        sys.stdout.write(rendered)
+
+if __name__ == "__main__":
+    main()
