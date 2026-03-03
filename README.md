@@ -31,7 +31,7 @@ pip install rich
 ## Installation
 
 ```bash
-curl -o ~/.local/bin/mdview https://raw.githubusercontent.com/YOUR_USERNAME/mdview/main/mdview
+curl -o ~/.local/bin/mdview https://raw.githubusercontent.com/5eek3r/mdview/main/mdview
 chmod +x ~/.local/bin/mdview
 ```
 
